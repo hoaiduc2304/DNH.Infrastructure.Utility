@@ -1,0 +1,40 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace DNH.Infrastructure.Paging
+{
+    /// <summary>
+    /// Implements <see cref="IPagedResult{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">Type of the items in the <see cref="ListResultDto{T}.Items"/> list</typeparam>
+    [Serializable]
+    public class PagedResultDto<T> : ListResultDto<T>, IPagedResult<T>
+    {
+        /// <summary>
+        /// Total count of Items.
+        /// </summary>
+        public int TotalCount { get; set; }
+        public string Message { get; set; }
+
+        /// <summary>
+        /// Creates a new <see cref="PagedResultDto{T}"/> object.
+        /// </summary>
+        public PagedResultDto()
+        {
+
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="PagedResultDto{T}"/> object.
+        /// </summary>
+        /// <param name="totalCount">Total count of Items</param>
+        /// <param name="items">List of items in current page</param>
+        public PagedResultDto(int totalCount, IReadOnlyList<T> items, string strMessage = "")
+            : base(items)
+        {
+            TotalCount = totalCount;
+            Message = strMessage;
+        }
+    }
+}
